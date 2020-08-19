@@ -21,7 +21,6 @@ function [iF, Rd, Rbias, Rgrav, Vgo, Tgo, dtc, xc] = CycleUPFG(R, V, Acc, spre, 
             break;
         end
         norm(Vgo);
-        Tgo-Tgo0;
         Rbias0 = Rbias;
         Rd0 = Rd;
         Rgrav0 = Rgrav;
