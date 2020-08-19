@@ -16,7 +16,6 @@ function [R, V, dtc, xc] = CSE(R0,V0,Tgo,x,dtc,xc)
 %
 global mu
 
-
     x = xc;
     
     % Set dtc to Tgo if first run
@@ -50,9 +49,6 @@ global mu
     dtmin = 0; 
     xp=0;
     P=0;
-    
-    
-    
     
     if alpha > 0
     
@@ -135,8 +131,6 @@ global mu
     
     
 end
-
-
 
 % SUBROUTINES USED IN THE MAIN LOOP, CONTAINS:
 %
@@ -237,10 +231,7 @@ function Q = Qfrac(w)
     end
 
     Q = 1/w^2 * (1 + 2*(1-b/4)/(3*w*(w+1)));
-        
-    
-    
- 
+
 end
 
 
