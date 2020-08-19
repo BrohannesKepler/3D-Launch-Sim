@@ -38,7 +38,6 @@ Vgo = 0;
 Tgo = 0;
 spre = 0;
 csetc = 0; csexc = 0; dtc = 0; xc = 0;
-
 UPFG_vars = 0;
 
 while t < T
