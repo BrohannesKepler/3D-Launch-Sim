@@ -228,7 +228,6 @@ F_g = -mu/r^3 * [x; y; z];
 dVdt = 1/M * (T*Uti - D) + F_g;
 drdt = [vx;vy;vz];
 
-
 %Vector to store the vehicle variables. These will be passed through the
 %integrator and output to validate nominal performance. 
 
