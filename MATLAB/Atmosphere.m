@@ -82,7 +82,6 @@ elseif h > 79E3
     Pr = 0;
     rho = 0;
 end
-
 A = [Pr, rho, T];                                                           %Output a matrix of pressure, density and temp at the requested h
 end
 
