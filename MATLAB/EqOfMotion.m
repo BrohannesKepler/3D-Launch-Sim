@@ -1,4 +1,4 @@
-function S = EqOfMotion(t,Y,UPFG_in)
+function S = EqOfMotion(t, Y, UPFG_in)
 %Equations of motion in 3 degrees of freedom describing the trajectory of
 %the centre of mass of the launch vehicle. Input the cartesian position and
 %velocity and outputs the vector dVdt and drdt.
@@ -35,6 +35,8 @@ R = [x;y;z];
 V = [vx;vy;vz];
 Acc = [ax;ay;az];
 
+shutoff_cmd = 0;
+
 %Calculate the longitude, latitdue (in rad) and radial position to compute the
 %position in geographic NED coordinates:
 
@@ -67,10 +69,6 @@ V_geo =  T_EG * [vx;vy;vz];
 
 gamm = asin(V_geo(1)/V_i);
 hdg = atan2(V_geo(2),V_geo(3));
-hdg*180/pi;
-%[gamm*180/pi,hdg*180/pi]
-
-%Heading angle:
 
 V_v = ForceMass2(t,r,v_i);
 
@@ -174,7 +172,7 @@ if t > tb
         dtc = UPFG_in{1}{6};
         xc = UPFG_in{1}{7};
 
-        %Tgo
+        Tgo
         [iF, Rd, Rbias, Rgrav, Vgo, Tgo, dtc, xc] = UPFG(R, V, Acc, spre, 0, Rbias, Rgrav, Rd, Vgo, Tgo, T, M, Targ, dtc, xc);
     end
     % IF FIRST ITERATION, COMPUTE THE TARGET CONDITIONS AND SET INITIAL GUESS
@@ -187,12 +185,13 @@ if t > tb
     psi = acos(iF_local(3)/sin(theta));
     
     % CUTOFF CONDITIONS
-    norm(Vgo);
-    if Tgo < 0.01
+
+    if Tgo < 0.1
         
         T = 0;
         fprintf("Cutoff confirmed\n");
         TERMSTATE = State2Orb(R, V);
+        shutoff_cmd = 1;
     end
     
 end
@@ -232,7 +231,7 @@ drdt = [vx;vy;vz];
 %integrator and output to validate nominal performance. 
 
 V_variables = [T, norm(D), M, gamm, theta, psi, hdg];
-UPFG_vars = {Rd, Rbias, Rgrav, Vgo, Tgo, dtc, xc};
+UPFG_vars = {Rd, Rbias, Rgrav, Vgo, Tgo, dtc, xc, shutoff_cmd};
 S = {drdt;dVdt;V_variables;UPFG_vars};
 
 end

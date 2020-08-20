@@ -50,10 +50,18 @@ while t < T
     
     Y = [x(n),y(n),z(n),vx(n),vy(n),vz(n),ax(n),ay(n),az(n)];
     State = EqOfMotion(t(n),Y, UPFG_vars);
-    
+
     St = cell2mat(State(1:2));
     Vars = cell2mat(State(3));
     UPFG_vars = State(4);
+    
+    %if St(1) == 0
+    %    break;
+    %end
+    
+    if UPFG_vars{1}{8} == 1
+        break;
+    end
     
     
     dx = St(1);
@@ -78,6 +86,6 @@ while t < T
     
 end
 
-S2 = {t;x;y;z;vx;vy;vz;ax;ay;az;Vars2};
+S2 = {t(1:n);x(1:n);y(1:n);z(1:n);vx(1:n);vy(1:n);vz(1:n);ax(1:n);ay(1:n);az(1:n);Vars2((1:n-1),:)};
 
 end

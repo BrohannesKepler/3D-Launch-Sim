@@ -73,7 +73,7 @@ Pe = 0;
 
 %Initial latitude and longitude (in degrees):
     %CAPE CANAVERAL AIR FORCE STATION, FL, USA: 28N 280W
-    %A'MHOINE PENINSULA SCOTLAND: 58.5N -4.5W
+    %A'MHOINE PENINSULA, SCOTLAND: 58.5N -4.5W
     %KOUROU: 5N -52W
 
 lat0 = 28;
@@ -93,7 +93,7 @@ Y0 = [x0;y0;z0;vx0;vy0;vz0;ax0;ay0;az0];
 %Calculate burn time:
 tb = MProp/mdotTot;                                                         %Stage 1 burn time
 tb2 = Mprop2/mdotTot2;                                                      %Stage 2 burn time
-IntegrationTime = tb+339.75;                                                   %Integrate over powered flight
+IntegrationTime = tb+342;                                                   %Integrate over powered flight
 dt = 0.1;
 ts = [0, IntegrationTime]; 
 
@@ -119,6 +119,11 @@ Az = St(10,:);
 
 R_S = [X;Y;Z];
 V_S = [Vx;Vy;Vz];
+
+
+
+%=======================POST-PROCESSING &PLOTTING==========================
+
 
 %Index for vehicle variables passed through the integrator
 Veh = cell2mat(State(11));
@@ -186,8 +191,9 @@ plot(Time(1:end-1),Gamma*180/pi,'k');
 title('Flight Angles');
 
 figure;
-plot(Time(1:end-1),Theta*180/pi,'k')
-title('Theta');
+plot(Time(1:end-1),Theta*180/pi,'k',Time(1:end-1),Psi*180/pi,'k--')
+title('Pitch & Yaw angles');
+legend('Pitch','Yaw')
 
 figure;
 plot(Time,Alt,'k');
